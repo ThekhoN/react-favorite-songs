@@ -32,7 +32,8 @@ export const asyncFetchFavSongs = () => {
         dispatch(fetchingFavSongs(false));
       })
       .catch(err => {
-        dispatch(errorFetchFavSongs(err));
+        dispatch(errorFetchFavSongs("Error in asyncFetchFavSongs"));
+        dispatch(fetchingFavSongs(false));
       });
   };
 };

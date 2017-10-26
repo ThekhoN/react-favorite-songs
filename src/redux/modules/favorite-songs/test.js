@@ -52,6 +52,7 @@ describe("asyncFetchFavSongs", () => {
   afterEach(() => {
     moxios.uninstall();
   });
+  // success
   it("returns correct type & payload on SUCCESS", () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
@@ -77,6 +78,27 @@ describe("asyncFetchFavSongs", () => {
     const store = mockStore({
       favoriteSongs: initialState
     });
+    return store.dispatch(asyncFetchFavSongs()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+  // error
+  it("returns correct type & payload on FAILURE", () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 422
+      });
+    });
+    const expectedActions = [
+      { type: FETCHING_FAV_SONGS, payload: true },
+      {
+        type: ERROR_FETCH_FAV_SONGS,
+        payload: "Error in asyncFetchFavSongs"
+      },
+      { type: FETCHING_FAV_SONGS, payload: false }
+    ];
+    const store = mockStore({ favoriteSongs: initialState });
     return store.dispatch(asyncFetchFavSongs()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
