@@ -2,8 +2,9 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import Home from "../../scenes/home";
+import Artists from "../../scenes/artists";
 
-const MainWrapper = styled.main`
+const MainWrapper = styled.div`
   width: 100%;
   display: block;
   padding: 1rem;
@@ -12,9 +13,9 @@ const MainWrapper = styled.main`
 
 const Main = () => (
   <MainWrapper>
-    <h2>Main Component</h2>
     <Switch>
       <Route path="/" exact component={Home} />
+      <Route path="/artists" exact component={Artists} />
       <Redirect to="/" />
     </Switch>
   </MainWrapper>

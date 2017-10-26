@@ -3,7 +3,7 @@ import Nav from "../nav";
 
 const Header = () => (
   <header>
-    <h2>Header Component</h2>
+    <h2>Favorite Songs App</h2>
     <Nav />
   </header>
 );
