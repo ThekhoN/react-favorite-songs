@@ -1,11 +1,11 @@
 import React from "react";
-import FavSongList from "./components/fav-songs-list";
+import HomeContent from "./components/home-content";
 
 const Home = () => (
   <div>
     <h2>Home </h2>
     <br />
-    <FavSongList />
+    <HomeContent />
   </div>
 );
 
