@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 
 const StyleList = styled.ul`
   width: 100%;
-  background-color: green;
+  color: purple;
+  list-style: none;
 `;
 
 const FavSongsList = ({ songs }) => (

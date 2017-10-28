@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import FavSongsList from "../fav-songs-list";
 import { asyncFetchFavSongs } from "../../../../redux/modules/favorite-songs";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const Loading = () => (
   <div>
@@ -10,14 +11,21 @@ const Loading = () => (
   </div>
 );
 
-class HomeContentComponent extends Component {
+const MainHomeContent = styled.div`
+  width: 100%;
+  background-color: yellow;
+`;
+
+export class HomeContentComponent extends Component {
   componentDidMount() {
     this.props.asyncFetchFavSongs();
   }
   render() {
     const { fetching, songs } = this.props;
     return (
-      <main>{fetching ? <Loading /> : <FavSongsList songs={songs} />}</main>
+      <MainHomeContent className="home-content">
+        {fetching ? <Loading /> : <FavSongsList songs={songs} />}
+      </MainHomeContent>
     );
   }
 }
