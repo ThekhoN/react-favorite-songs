@@ -72,6 +72,26 @@ describe("HomeContent Wrapper", () => {
   });
 });
 
+describe("HomeContent renders correctly when error", () => {
+  let store, container;
+  beforeEach(() => {
+    store = mockStore({
+      favoriteSongs: {
+        ...initialState,
+        error: "Error"
+      }
+    });
+    container = render(<HomeContent store={store} />);
+  });
+  it("renders only <Error />", () => {
+    expect(container.find("div.error").length).toBe(1);
+  });
+  it("does not render other components", () => {
+    expect(container.find("ul.fav-songs-list").length).toEqual(0);
+    expect(container.find("div.loader").length).toEqual(0);
+  });
+});
+
 describe("HomeContent renders correctly when fetching is false/default", () => {
   let store, container;
   beforeEach(() => {
@@ -83,8 +103,9 @@ describe("HomeContent renders correctly when fetching is false/default", () => {
   it("renders <FavSongsList />", () => {
     expect(container.find("ul.fav-songs-list").length).toEqual(1);
   });
-  it("does not render <Loader />", () => {
+  it("does not render other components", () => {
     expect(container.find("div.loader").length).toEqual(0);
+    expect(container.find("div.error").length).toEqual(0);
   });
 });
 
@@ -102,7 +123,8 @@ describe("HomeContent renders correctly when fetching is true", () => {
   it("renders <Loader />", () => {
     expect(container.find("div.loader").length).toEqual(1);
   });
-  it("does not render <FavSongsList />", () => {
-    expect(container.find("ul.fav-songs-list").length).toEqual(0);
+  it("does not render other components", () => {
+    expect(container.find("ul.fav-songs-ist").length).toEqual(0);
+    expect(container.find("div.error").length).toEqual(0);
   });
 });

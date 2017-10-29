@@ -1,6 +1,7 @@
 import axios from "axios";
 import { rootUrl, endpoints } from "../../../services/api";
 const url = `${rootUrl}${endpoints.favoriteSongs}`;
+// const url = "https://www.google.com";
 
 // action type
 export const FETCHING_FAV_SONGS = "FETCHING_FAV_SONGS";
@@ -32,7 +33,7 @@ export const asyncFetchFavSongs = () => {
         dispatch(fetchingFavSongs(false));
       })
       .catch(err => {
-        dispatch(errorFetchFavSongs("Error in asyncFetchFavSongs"));
+        dispatch(errorFetchFavSongs("Error in asyncFetchFavSongs. . ."));
         dispatch(fetchingFavSongs(false));
       });
   };
