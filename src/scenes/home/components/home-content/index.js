@@ -5,8 +5,8 @@ import { asyncFetchFavSongs } from "../../../../redux/modules/favorite-songs";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Loading = () => (
-  <div>
+const Loader = () => (
+  <div className="loader">
     <h2>Loading. . .</h2>
   </div>
 );
@@ -24,7 +24,7 @@ export class HomeContentComponent extends Component {
     const { fetching, songs } = this.props;
     return (
       <MainHomeContent className="home-content">
-        {fetching ? <Loading /> : <FavSongsList songs={songs} />}
+        {fetching ? <Loader /> : <FavSongsList songs={songs} />}
       </MainHomeContent>
     );
   }

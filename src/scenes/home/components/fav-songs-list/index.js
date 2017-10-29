@@ -9,7 +9,7 @@ const StyleList = styled.ul`
 `;
 
 const FavSongsList = ({ songs }) => (
-  <StyleList>
+  <StyleList className="fav-songs-list">
     {songs.map(song => <li key={song.createdAt}>{song.name}</li>)}
   </StyleList>
 );

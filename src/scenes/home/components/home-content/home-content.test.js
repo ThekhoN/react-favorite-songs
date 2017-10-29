@@ -26,42 +26,83 @@ describe("HomeContent", () => {
 import React from "react";
 import { shallow, mount } from "enzyme";
 import configureMockStore from "redux-mock-store";
-import { favSongssDummyData as dummyDate } from "../../../../services/data";
+import { favSongssDummyData as dummyData } from "../../../../services/data";
 import {
   initialState,
   asyncFetchFavSongs
 } from "../../../../redux/modules/favorite-songs";
 import HomeContent, { HomeContentComponent } from "./index";
+import FavSongsList from "../fav-songs-list";
 
-/* non-connected component */
-function setup() {
-  const props = {
-    asyncFetchFavSongs: jest.fn(),
-    songs: [],
-    fetching: false
-  };
-  const enzymeWrapper = mount(<HomeContentComponent {...props} />);
-  return {
-    props,
-    enzymeWrapper
-  };
-}
-describe("HomeContentComponent", () => {
-  it("renders HomeContentComponent", () => {
-    const { enzymeWrapper } = setup();
-    expect(enzymeWrapper.find("div").hasClass("home-content")).toBe(true);
-  });
-});
+/*******************************/
+//  test non-connected component
+/*******************************/
+// function setup() {
+//   const props = {
+//     asyncFetchFavSongs: jest.fn(),
+//     songs: [],
+//     fetching: false
+//   };
+//   const enzymeWrapper = mount(<HomeContentComponent {...props} />);
+//   return {
+//     props,
+//     enzymeWrapper
+//   };
+// }
+// describe("HomeContentComponent", () => {
+//   it("renders HomeContentComponent", () => {
+//     const { enzymeWrapper } = setup();
+//     expect(enzymeWrapper.find("div").hasClass("home-content")).toBe(true);
+//   });
+// });
 
-/* connected component */
-describe("HomeContent", () => {
-  const mockStore = configureMockStore();
+/*******************************/
+//  test connected component
+/*******************************/
+const mockStore = configureMockStore();
+
+describe("HomeContent Wrapper", () => {
   let store, container;
   beforeEach(() => {
     store = mockStore({ favoriteSongs: initialState });
     container = shallow(<HomeContent store={store} />);
   });
-  it("renders HomeContent correctly", () => {
+  it("renders the wrapper correctly", () => {
     expect(container.length).toEqual(1);
+  });
+});
+
+describe("HomeContent renders correctly when fetching is false/default", () => {
+  let store, container;
+  beforeEach(() => {
+    store = mockStore({
+      favoriteSongs: initialState
+    });
+    container = render(<HomeContent store={store} />);
+  });
+  it("renders <FavSongsList />", () => {
+    expect(container.find("ul.fav-songs-list").length).toEqual(1);
+  });
+  it("does not render <Loader />", () => {
+    expect(container.find("div.loader").length).toEqual(0);
+  });
+});
+
+describe("HomeContent renders correctly when fetching is true", () => {
+  let store, container;
+  beforeEach(() => {
+    store = mockStore({
+      favoriteSongs: {
+        ...initialState,
+        fetching: true
+      }
+    });
+    container = render(<HomeContent store={store} />);
+  });
+  it("renders <Loader />", () => {
+    expect(container.find("div.loader").length).toEqual(1);
+  });
+  it("does not render <FavSongsList />", () => {
+    expect(container.find("ul.fav-songs-list").length).toEqual(0);
   });
 });
