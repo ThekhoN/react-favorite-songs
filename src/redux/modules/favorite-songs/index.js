@@ -3,12 +3,12 @@ import { rootUrl, endpoints } from "../../../services/api";
 const url = `${rootUrl}${endpoints.favoriteSongs}`;
 // const url = "https://www.google.com";
 
-// action type
+// action types
 export const FETCHING_FAV_SONGS = "FETCHING_FAV_SONGS";
 export const ERROR_FETCH_FAV_SONGS = "ERROR_FETCH_FAV_SONGS";
 export const FETCH_SUCCESS_FAV_SONGS = "FETCH_SUCCESS_FAV_SONGS";
 
-// actions
+// actions creators
 export const fetchingFavSongs = payload => ({
   type: FETCHING_FAV_SONGS,
   payload
@@ -22,7 +22,7 @@ export const fetchSuccessFavSongs = payload => ({
   payload
 });
 
-// action creator
+// async action creator
 export const asyncFetchFavSongs = () => {
   return function(dispatch) {
     dispatch(fetchingFavSongs(true));
